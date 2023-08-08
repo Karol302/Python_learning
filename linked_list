@@ -1,0 +1,126 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    #insert node at the start of linked list
+    def insert_at_start(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            return
+        new_node.next = self.head
+        self.head = new_node
+
+    # insert node at the end of linked list
+    def insertAtEnd(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            return
+
+        current_node = self.head
+        while (current_node.next):
+            current_node = current_node.next
+
+        current_node.next = new_node
+
+    # print all elements of linked list
+    def printall(self):
+        current_node = self.head
+        while current_node:
+            print(current_node.data, end=' ')
+            current_node = current_node.next
+
+    # add node at index
+    def add_node_at_index(self, data, index):
+        new_node = Node(data)
+        current_node = self.head
+
+        if index == 0:
+            self.insert_at_start(data)
+            return
+
+        for i in range(index-1):
+            current_node = current_node.next
+            if current_node == None:
+                print("Index out of range")
+
+        new_node.next = current_node.next
+        current_node.next = new_node
+
+    # delete node with given index
+    def delete_index(self, index):
+        current_node = self.head
+
+        if index == 0:
+            self.head = current_node.next
+            return
+
+        for i in range(index-1):
+            current_node = current_node.next
+            if current_node.next == None:
+                print("Index out of range")
+
+        current_node.next = current_node.next.next
+
+
+    # update node of a linked list
+    def update_node(self, value, index):
+        current_node = self.head
+
+        if index == 0:
+            self.head.data = value
+            return
+
+        for i in range(index):
+            current_node = current_node.next
+            if current_node == None:
+                print("Index out of range")
+
+        current_node.data = value
+
+    # remove first node of linked list
+    def remove_first_node(self):
+        if self.head is None:
+            print("Linked list is empty")
+        else:
+            self.head = self.head.next
+
+    # remove last node of linked list
+    def remove_last_node(self):
+        current_node = self.head
+
+        if current_node is None:
+            return
+
+        while current_node.next.next:
+            current_node = current_node.next
+
+        current_node.next = None
+
+    # remove nodes with given value
+    def remove_value(self, value):
+        current_node = self.head
+
+        while current_node.next:
+            if current_node.next.data == value:
+                current_node.next = current_node.next.next
+            else:
+                current_node = current_node.next
+
+        if self.head.data == value:
+            self.head = self.head.next
+
+    # size of linked list
+    def size_linked_list(self):
+        current_node = self.head
+        size = 0
+        while current_node:
+            size += 1
+            current_node = current_node.next
+        print(f"Size of linked list: {size}")
